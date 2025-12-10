@@ -13,6 +13,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  USER
+  ADMIN
+}
+
 model User {
   id        String   @id @default(uuid())
   name      String
@@ -20,6 +25,7 @@ model User {
   password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  role     Role   @default(USER)
   // Relations
   moviesCreated Movie[] @relation("MovieCreator")
   watchlistItems WatchlistItem[]
@@ -53,7 +59,12 @@ model WatchlistItem {
   // Relations
   user User  @relation(fields: [userId], references: [id], onDelete: Cascade)
   movie Movie @relation(fields: [movieId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, movieId])
 }
+
+
+
 
 
 enum WatchlistStatus {

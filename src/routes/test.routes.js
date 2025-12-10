@@ -1,10 +1,10 @@
+import { test } from "../controllers/test.controller.js";
 import { Router } from "express";
-import { getAllMovies } from "../controllers/movie.controller.js";
 
 const router = Router();
 
 // Sample movie data
 
-router.get("/", getAllMovies);
+router.get("/", test);
 
 export default router;
